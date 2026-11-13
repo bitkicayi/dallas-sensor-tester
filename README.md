@@ -1,4 +1,4 @@
-# dallas-temperature-sensor
+# dallas-sensor-tester
 
 i built this to find out which of the Dallas DS18B20 temperature sensors in the workshop actually worked. i tested them one at a time at room temperature. the perfboard has since been promoted to quality control.
 
@@ -45,8 +45,8 @@ Put the 4.7 kΩ pull-up between `DQ` and `3V3`. Press and release the reset butt
 Install PlatformIO Core and connect the NodeMCU over USB. [PlatformIO quick start](https://docs.platformio.org/en/stable/core/quickstart.html)
 
 ```sh
-git clone https://github.com/bitkicayi/dallas-temperature-sensor.git
-cd dallas-temperature-sensor
+git clone https://github.com/bitkicayi/dallas-sensor-tester.git
+cd dallas-sensor-tester
 pio run -e nodemcuv2
 pio run -e nodemcuv2 -t upload
 ```
