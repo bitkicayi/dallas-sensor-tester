@@ -1,16 +1,27 @@
 # dallas-temperature-sensor
 
-i asked the room how warm it was. the room declined to comment. so i soldered an appeals process to a piece of perfboard.
+i built this to find out which of the Dallas DS18B20 temperature sensors in the workshop actually worked. i tested them one at a time at room temperature. the perfboard has since been promoted to quality control.
 
 a NodeMCU wakes up, asks a DS18B20 for one temperature reading, puts it on an OLED for three seconds, and goes back to sleep. the big green button is the only part that looks like it has a budget.
 
 <p align="center">
-  <img src="docs/photos/temperature-reading.jpg" width="760" alt="The hand-soldered NodeMCU thermometer showing a Celsius reading next to its large green button">
+  <img src="docs/photos/working-sensor.png" width="760" alt="The working DS18B20 reads 23.6 degrees Celsius on the tester's OLED">
+  <br>
+  <em>23.6 °C from the only working sensor in the batch. employee of the month.</em>
 </p>
+
+## the workshop test results
+
+| Wrong reading | Sensor error |
+| :---: | :---: |
+| <img src="docs/photos/negative-reading.jpg" width="340" alt="A faulty DS18B20 reports minus 45.0 degrees Celsius at room temperature"> | <img src="docs/photos/sensor-error.jpg" width="340" alt="The OLED displays Sensor hatasi while testing a faulty DS18B20"> |
+| `-45.0 C` on a room-temperature bench. the workshop had applied for polar status. | `Sensor hatasi`. this one filed its complaint in Turkish. |
+
+The firmware displays any reading from −55 to 125 °C, so spotting a wildly wrong room-temperature reading is up to whoever's holding the button.
 
 ## three seconds of public service
 
-1. Power on or reset the board. The ESP8266 turns off Wi-Fi and looks for the OLED at `0x3C` or `0x3D`.
+1. With USB power disconnected, connect one sensor. Power on or reset the board. The ESP8266 turns off Wi-Fi and looks for the OLED at `0x3C` or `0x3D`.
 2. The first DS18B20 on the 1-Wire bus gets one question. The OLED shows `Sicaklik` (temperature) and the answer in Celsius to one decimal place. A missing or out-of-range reading gets `Sensor hatasi` (sensor error).
 3. After three seconds the display goes dark and the ESP8266 enters deep sleep with no wake timer. Reset it for another reading. it has already done everything it came here to do.
 
@@ -54,8 +65,3 @@ pio run -e nodemcuv2 -t upload
 | :---: | :---: |
 | <img src="docs/photos/display-asleep.jpg" width="340" alt="Top of the assembled perfboard thermometer with the OLED dark"> | <img src="docs/photos/perfboard-underside.jpg" width="340" alt="Hand-soldered underside of the perfboard with orange jumper wires"> |
 | the screen has clocked out. | the orange wires know where they’re going. |
-
-| Cold testimony | Refusal to testify |
-| :---: | :---: |
-| <img src="docs/photos/negative-reading.jpg" width="340" alt="OLED displaying minus 45.0 Celsius"> | <img src="docs/photos/sensor-error.jpg" width="340" alt="OLED displaying the Turkish sensor error message Sensor hatasi"> |
-| `-45.0 C` entered into the record. | `Sensor hatasi`. even the thermometer has boundaries. |
